@@ -6,12 +6,16 @@ const ImageManipulation = () => {
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
+  const [imageAngle, setImageAngle] = useState(0);
 
-  // 👉 Function to generate random RGB color
   const changeBackgroundColor = () => {
     setRed(Math.floor(Math.random() * 256));
     setGreen(Math.floor(Math.random() * 256));
     setBlue(Math.floor(Math.random() * 256));
+  };
+
+  const rotateImage = () => {
+    setImageAngle((prevAngle) => prevAngle + 30);
   };
 
   return (
@@ -26,7 +30,8 @@ const ImageManipulation = () => {
             height: `${catHeight}px`,
             width: '400px',
             padding: '70px',
-            transition: 'all 0.3s ease' // smooth change
+            transform: `rotate(${imageAngle}deg)`,
+            transition: 'all 0.5s ease',
           }}
           src={Cat}
           alt="Cat"
@@ -34,13 +39,20 @@ const ImageManipulation = () => {
       </div>
 
       <div style={{ marginTop: '20px' }}>
-        <button onClick={() => setCatHeight(catHeight + 20)}>Increase Size</button>
+        <button onClick={rotateImage}>Rotate Image</button>
+        <button onClick={() => setCatHeight(catHeight + 20)} style={{ marginLeft: '10px' }}>
+          Increase Size
+        </button>
         <button onClick={() => setCatHeight(catHeight - 20)} style={{ marginLeft: '10px' }}>
           Decrease Size
         </button>
         <button onClick={changeBackgroundColor} style={{ marginLeft: '10px' }}>
           Change Background Color
         </button>
+
+        <h3>Red color value: {red}</h3>
+        <h3>Green color value: {green}</h3>
+        <h3>Blue color value: {blue}</h3>
       </div>
     </div>
   );
